@@ -1,5 +1,5 @@
 /*
- * @Description: 填写描述
+ * @Description: Interface of PasswordHash
  * @Author: WangXinyong/TaceyWong
  * @Date: 2020-09-21 18:31:12
  * @LastEditors: WangXinyong/TaceyWong
@@ -13,8 +13,10 @@ type PasswordHash interface {
 	Verify(password, hash string) bool    // verify password against existing hash.
 	Using() *PasswordHash                 // create subclass with customized configuration.
 	Identify() bool                       // check if hash belongs to this algorithm.
-	Encrypt(string) string                // alias yo Hash(string)string
+	Encrypt(string) string                // alias to Hash(string)string
 	NeedsUpdate(hash, secret string) bool //
+	Indentify(hash string) bool //check if hash belongs to this scheme, returns True/False
+	
 }
 
 type PasswordHashBaseAttr struct {
@@ -31,3 +33,5 @@ type PasswordHashBaseAttr struct {
 	RoundsCost int
 	 
 }
+
+
