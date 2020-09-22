@@ -10,13 +10,13 @@ package pwd
 
 const (
     // barest protection from throttled online attack
-    EntropyUnsafe=12,
+    EntropyUnsafe=12
     // some protection from unthrottled online attack
-    EntropyWeak=24,
+    EntropyWeak=24
     // some protection from offline attacks
-    EntropyFair=36,
+    EntropyFair=36
     // reasonable protection from offline attacks
-    EntropyStrong=48,
+    EntropyStrong=48
     // very good protection from offline attacks
     EntropySecure=60
 )
