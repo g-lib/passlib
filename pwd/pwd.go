@@ -3,96 +3,84 @@
 * @Date:   2020-09-21 22:20:28
 * @Last Modified by:   Tacey Wong
 * @Last Modified time: 2020-09-21 22:35:04
-*/
+ */
 package pwd
 
-
-
-const (
-    // barest protection from throttled online attack
-    EntropyUnsafe=12
-    // some protection from unthrottled online attack
-    EntropyWeak=24
-    // some protection from offline attacks
-    EntropyFair=36
-    // reasonable protection from offline attacks
-    EntropyStrong=48
-    // very good protection from offline attacks
-    EntropySecure=60
+import (
+	"github.com/g-lib/passlib/utils"
 )
 
+const (
+	// barest protection from throttled online attack
+	EntropyUnsafe = 12
+	// some protection from unthrottled online attack
+	EntropyWeak = 24
+	// some protection from offline attacks
+	EntropyFair = 36
+	// reasonable protection from offline attacks
+	EntropyStrong = 48
+	// very good protection from offline attacks
+	EntropySecure = 60
+)
 
 // global dict of predefined characters sets
 var DefaultCharsets = map[string]string{
-    // ascii letters, digits, and some punctuation
-    "ascii_72":"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*?/",
+	// ascii letters, digits, and some punctuation
+	"ascii_72": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*?/",
 
-    //ascii letters and digits
-    "ascii_62":"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+	//ascii letters and digits
+	"ascii_62": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
-    // ascii_50, without visually similar '1IiLl', '0Oo', '5S', '8B'
-    "ascii_50":"234679abcdefghjkmnpqrstuvwxyzACDEFGHJKMNPQRTUVWXYZ",
+	// ascii_50, without visually similar '1IiLl', '0Oo', '5S', '8B'
+	"ascii_50": "234679abcdefghjkmnpqrstuvwxyzACDEFGHJKMNPQRTUVWXYZ",
 
-    // lower case hexadecimal
-    "hex":"0123456789abcdef",
+	// lower case hexadecimal
+	"hex": "0123456789abcdef",
 }
 
 // Need lazy-load
-var DefaultWordsets = map[string]string{
+var DefaultWordsets = map[string]string{}
 
-}
-
-
-
-
-type GenWordOpt struct{
+type GenWordOpt struct {
 	Entropy string
-	Length int
+	Length  int
 	Charset string
-	Chars string
+	Chars   string
 	Returns string
 }
 
-
 // GenWord Generate one or more random passwords.
-func GenWord(opt *GenWordOpt)string{
-	return ""
+func GenWord(opt *GenWordOpt) string {
+	return utils.GetRandomStr(true, opt.Length)
 }
 
-
-func GenWordQuickly(length int)string{
+func GenWordQuickly(length int) string {
 	opt := GenWordOpt{
-		Length=length
+		Length: length,
 	}
 	return GenWord(&opt)
 }
 
-
-
 type GenPhraseOpt struct {
 	Entropy string
-	Length int
+	Length  int
 	Wordset string
-	Words string
-	Sep string
+	Words   string
+	Sep     string
 	Returns string
 }
 
-// GenPhrase Generate one or more random password/passphrases 
-func GenPhrase(opt *GenPhraseOpt)¶string{
+// GenPhrase Generate one or more random password/passphrases
+func GenPhrase(opt *GenPhraseOpt) string {
 	return ""
 }
 
-
-func GenPhraseQuickly(lenght int)string{
+func GenPhraseQuickly(lenght int) string {
 	opt := GenPhraseOpt{
-		Length=lenght
+		Length: lenght,
 	}
 	return GenPhrase(&opt)
 }
-
-
-
 
 //PasswordStrength https://github.com/dropbox/zxcvbn
 //=============================================================================
@@ -112,6 +100,6 @@ func GenPhraseQuickly(lenght int)string{
 //    * give a look at running things through zlib - might be able to cheaply
 //      catch extra redundancies.
 //=============================================================================
-func PasswordStrength(password string, userInputs []string)int{
+func PasswordStrength(password string, userInputs []string) int {
 	return 0
 }
